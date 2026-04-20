@@ -1,6 +1,4 @@
-python -m pip install --upgrade pip
-    pip install pytest pytest-covname: SonarCloud Analysis
-
+name: SonarCloud Analysis
 on:
   push:
     branches:
@@ -12,10 +10,8 @@ on:
 jobs:
   sonarcloud:
     runs-on: ubuntu-latest
-
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -25,8 +21,8 @@ jobs:
         with:
           python-version: "3.10"
 
-     - name: Install Dependencies
-       run: |
+      - name: Install Dependencies   # ✅ Fixed indentation
+        run: |
           python -m pip install --upgrade pip
           pip install pytest pytest-cov
 
@@ -42,4 +38,3 @@ jobs:
           args: >
             -Dsonar.projectKey=foysolcse_sonarQube-assignment
             -Dsonar.organization=foysolcse
-
