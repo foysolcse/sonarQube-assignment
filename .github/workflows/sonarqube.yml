@@ -33,7 +33,7 @@ jobs:
           pytest --maxfail=1 --disable-warnings -q || true
 
       - name: SonarCloud Scan
-        uses: SonarSource/sonarqube-scan-action@aa23570e35b62d50e7823fe04a3c7c14f21d0c02  # v6
+        uses: SonarSource/sonarqube-scan-action@v6
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
