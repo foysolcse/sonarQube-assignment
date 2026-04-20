@@ -1,4 +1,3 @@
-cat > .github/workflows/sonarqube.yml << 'EOF'
 name: SonarCloud Analysis
 
 on:
@@ -43,4 +42,3 @@ jobs:
           args: >
             -Dsonar.projectKey=foysolcse_sonarQube-assignment
             -Dsonar.organization=foysolcse
-EOF
