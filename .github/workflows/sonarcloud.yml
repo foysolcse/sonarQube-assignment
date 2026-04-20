@@ -9,25 +9,31 @@ jobs:
   sonarcloud:
     runs-on: ubuntu-latest
 
-env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true   # ✅ fix warning
-
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4   # ✅ updated
+        uses: actions/checkout@v4
 
       - name: Setup Python
-        uses: actions/setup-python@v5   # ✅ updated
+        uses: actions/setup-python@v5
         with:
           python-version: '3.10'
 
       - name: Install Dependencies
-        run: pip install pytest pytest-cov
+        run: |
+          run: pip install pytest pytest-cov
 
-      - name: Run Tests
-        run: pytest --cov=.
+      - name: Run Tests with Coverage
+        run: pytest --cov=. --cov-report=xml
 
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@v2
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      - name: Install SonarScanner
+        run: |
+          npm install -g sonar-scanner
+
+      - name: Run SonarCloud Scan
+        run: |
+          sonar-scanner \
+            -Dsonar.projectKey=foysolcse_sonarQube-assignment \
+            -Dsonar.organization=foysolcse \
+            -Dsonar.sources=. \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
